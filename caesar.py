@@ -1,17 +1,18 @@
+# Define variables
 alphabet = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
 alphabet2 = str.upper(alphabet)
 
 shift = input("Enter shift: ")
 text = input("Enter text: ")
-key = input ('enter key:')
-choice = input("Write 'e' for encode, 'd' for decode ")
 final = ''
 x = 0
+choice = input("Write 'e' for encode, 'd' for decode ")
 letter_list = []
 
-if choice == 'e':
+# Encode function
+def encode(text, x, final, shift):
 
-    for letter in text:
+    for i in range (0, len(text)):
         single_letter = text[x]
         numberified_letter = alphabet.find(text[x])
         numberified_letter2 = alphabet2.find(text[x])
@@ -31,8 +32,11 @@ if choice == 'e':
 
         x = x + 1
 
+    return final
 
-elif choice == 'd':
+# Decode function
+def decode(text, x, final ,shift):
+
     rev = alphabet[::-1]
     rev2 = alphabet2[::-1]
 
@@ -56,8 +60,27 @@ elif choice == 'd':
 
         x = x + 1
 
+    return final
 
+if choice == 'e':
+    print(encode(text, x, final, shift))
+
+elif choice == 'd':
+    bruteforce = input("Go through all shifts (1-26)? (y)es or (n)o: ")
+    key = input("Enter optional keyword to look for: ")
+
+    if bruteforce == 'n':
+        print(decode(text, x ,final ,shift))
+    elif bruteforce == 'y':
+
+        shift = 1
+        for i in range(1,26):
+           output = decode(text, x, final, shift)
+           shift += 1
+           if key in output:
+                print(output)
+                
+    else:
+        print('Invalid Input')
 else:
     print("Invalid Input")
-
-print(final)
